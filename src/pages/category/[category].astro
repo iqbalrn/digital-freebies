@@ -7,6 +7,8 @@ import AdBanner from '../../components/AdBanner.astro';
 import { Filter, Grid, List } from 'lucide-astro';
 import templatesData from '../../data/templates.json';
 
+const base = '/digital-freebies';
+
 export function getStaticPaths() {
   return templatesData.categories.map((category) => ({
     params: { category: category.id },
@@ -28,11 +30,11 @@ const filteredTemplates = templatesData.templates.filter(t => t.category === cat
     <div class="bg-white border-b border-gray-200">
       <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
         <nav class="flex items-center gap-2 text-sm">
-          <a href="/" class="text-gray-500 hover:text-violet-600">
+          <a href={`${base}/`} class="text-gray-500 hover:text-violet-600">
             Home
           </a>
           <span class="text-gray-400">/</span>
-          <a href="/categories" class="text-gray-500 hover:text-violet-600">
+          <a href={`${base}/categories`} class="text-gray-500 hover:text-violet-600">
             Categories
           </a>
           <span class="text-gray-400">/</span>
@@ -65,71 +67,6 @@ const filteredTemplates = templatesData.templates.filter(t => t.category === cat
               <Filter class="w-4 h-4" />
               Filters
             </h3>
-
-            <!-- Subcategory -->
-            <div class="mb-6">
-              <h4 class="text-sm font-medium text-gray-700 mb-3">Subcategory</h4>
-              <div class="space-y-2">
-                <label class="flex items-center gap-2 cursor-pointer">
-                  <input type="checkbox" class="w-4 h-4 rounded border-gray-300 text-violet-600 focus:ring-violet-500" checked />
-                  <span class="text-sm text-gray-600">All</span>
-                </label>
-                <label class="flex items-center gap-2 cursor-pointer">
-                  <input type="checkbox" class="w-4 h-4 rounded border-gray-300 text-violet-600 focus:ring-violet-500" />
-                  <span class="text-sm text-gray-600">Finance</span>
-                </label>
-                <label class="flex items-center gap-2 cursor-pointer">
-                  <input type="checkbox" class="w-4 h-4 rounded border-gray-300 text-violet-600 focus:ring-violet-500" />
-                  <span class="text-sm text-gray-600">Business</span>
-                </label>
-                <label class="flex items-center gap-2 cursor-pointer">
-                  <input type="checkbox" class="w-4 h-4 rounded border-gray-300 text-violet-600 focus:ring-violet-500" />
-                  <span class="text-sm text-gray-600">Marketing</span>
-                </label>
-              </div>
-            </div>
-
-            <!-- Format -->
-            <div class="mb-6">
-              <h4 class="text-sm font-medium text-gray-700 mb-3">Format</h4>
-              <div class="space-y-2">
-                <label class="flex items-center gap-2 cursor-pointer">
-                  <input type="checkbox" class="w-4 h-4 rounded border-gray-300 text-violet-600 focus:ring-violet-500" checked />
-                  <span class="text-sm text-gray-600">All</span>
-                </label>
-                <label class="flex items-center gap-2 cursor-pointer">
-                  <input type="checkbox" class="w-4 h-4 rounded border-gray-300 text-violet-600 focus:ring-violet-500" />
-                  <span class="text-sm text-gray-600">.xlsx</span>
-                </label>
-                <label class="flex items-center gap-2 cursor-pointer">
-                  <input type="checkbox" class="w-4 h-4 rounded border-gray-300 text-violet-600 focus:ring-violet-500" />
-                  <span class="text-sm text-gray-600">.png</span>
-                </label>
-                <label class="flex items-center gap-2 cursor-pointer">
-                  <input type="checkbox" class="w-4 h-4 rounded border-gray-300 text-violet-600 focus:ring-violet-500" />
-                  <span class="text-sm text-gray-600">.pdf</span>
-                </label>
-              </div>
-            </div>
-
-            <!-- Rating -->
-            <div class="mb-6">
-              <h4 class="text-sm font-medium text-gray-700 mb-3">Rating</h4>
-              <div class="space-y-2">
-                <label class="flex items-center gap-2 cursor-pointer">
-                  <input type="radio" name="rating" class="w-4 h-4 border-gray-300 text-violet-600 focus:ring-violet-500" checked />
-                  <span class="text-sm text-gray-600">All</span>
-                </label>
-                <label class="flex items-center gap-2 cursor-pointer">
-                  <input type="radio" name="rating" class="w-4 h-4 border-gray-300 text-violet-600 focus:ring-violet-500" />
-                  <span class="text-sm text-gray-600">4+ Stars</span>
-                </label>
-                <label class="flex items-center gap-2 cursor-pointer">
-                  <input type="radio" name="rating" class="w-4 h-4 border-gray-300 text-violet-600 focus:ring-violet-500" />
-                  <span class="text-sm text-gray-600">3+ Stars</span>
-                </label>
-              </div>
-            </div>
 
             <!-- Reset Button -->
             <button class="w-full py-2 text-sm text-violet-600 hover:bg-violet-50 rounded-lg transition-colors">
@@ -190,7 +127,7 @@ const filteredTemplates = templatesData.templates.filter(t => t.category === cat
               </div>
               <h3 class="text-xl font-semibold text-gray-900 mb-2">No templates found</h3>
               <p class="text-gray-500 mb-6">Try adjusting your filters or browse other categories.</p>
-              <a href="/categories" class="inline-flex items-center gap-2 px-6 py-3 bg-violet-600 hover:bg-violet-700 text-white font-semibold rounded-xl transition-colors">
+              <a href={`${base}/categories`} class="inline-flex items-center gap-2 px-6 py-3 bg-violet-600 hover:bg-violet-700 text-white font-semibold rounded-xl transition-colors">
                 Browse Categories
               </a>
             </div>

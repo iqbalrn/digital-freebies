@@ -6,6 +6,8 @@ import CategoryCard from '../components/CategoryCard.astro';
 import AdBanner from '../components/AdBanner.astro';
 import templatesData from '../data/templates.json';
 
+const base = '/digital-freebies';
+
 const categories = templatesData.categories;
 ---
 
@@ -36,7 +38,7 @@ const categories = templatesData.categories;
               icon={category.icon}
               description={category.description}
               count={category.count}
-              href={`/category/${category.id}`}
+              href={`${base}/category/${category.id}`}
             />
           ))}
         </div>
@@ -55,7 +57,7 @@ const categories = templatesData.categories;
             'banner', 'logo', 'branding', 'animation', 'intro'
           ].map((tag) => (
             <a
-              href={`/templates?q=${tag}`}
+              href={`${base}/templates?q=${tag}`}
               class="px-4 py-2 bg-gray-100 text-gray-700 rounded-full text-sm hover:bg-violet-100 hover:text-violet-700 transition-colors"
             >
               #{tag}

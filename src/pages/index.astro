@@ -8,6 +8,8 @@ import AdBanner from '../components/AdBanner.astro';
 import { Search, Shield, Download, Star, ArrowRight, Sparkles } from 'lucide-astro';
 import templatesData from '../data/templates.json';
 
+const base = '/digital-freebies';
+
 const featuredTemplates = templatesData.templates.filter(t => t.featured);
 const latestTemplates = [...templatesData.templates]
   .sort((a, b) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime())
@@ -45,7 +47,7 @@ const categories = templatesData.categories;
 
           <!-- Subheadline -->
           <p class="text-lg md:text-xl text-gray-600 mb-10 max-w-2xl mx-auto animate-slide-up" style="animation-delay: 100ms">
-            Download high-quality Excel, Canva, Video, PowerPoint & Word templates. Professional designs, instantly available.
+            Download high quality Excel, Canva, Video, PowerPoint & Word templates. Professional designs, instantly available.
           </p>
 
           <!-- Search Bar -->
@@ -95,7 +97,7 @@ const categories = templatesData.categories;
               Hand-picked premium templates for you
             </p>
           </div>
-          <a href="/templates" class="hidden sm:flex items-center gap-2 text-violet-600 font-medium hover:gap-3 transition-all duration-200">
+          <a href={`${base}/templates`} class="hidden sm:flex items-center gap-2 text-violet-600 font-medium hover:gap-3 transition-all duration-200">
             View All
             <ArrowRight class="w-4 h-4" />
           </a>
@@ -119,7 +121,7 @@ const categories = templatesData.categories;
         </div>
 
         <div class="mt-8 text-center sm:hidden">
-          <a href="/templates" class="inline-flex items-center gap-2 px-6 py-3 bg-violet-600 hover:bg-violet-700 text-white font-semibold rounded-xl transition-colors duration-200">
+          <a href={`${base}/templates`} class="inline-flex items-center gap-2 px-6 py-3 bg-violet-600 hover:bg-violet-700 text-white font-semibold rounded-xl transition-colors duration-200">
             View All Templates
             <ArrowRight class="w-4 h-4" />
           </a>
@@ -147,7 +149,7 @@ const categories = templatesData.categories;
               icon={category.icon}
               description={category.description}
               count={category.count}
-              href={`/category/${category.id}`}
+              href={`${base}/category/${category.id}`}
             />
           ))}
         </div>
@@ -166,7 +168,7 @@ const categories = templatesData.categories;
               Fresh templates added recently
             </p>
           </div>
-          <a href="/templates?sort=newest" class="hidden sm:flex items-center gap-2 text-violet-600 font-medium hover:gap-3 transition-all duration-200">
+          <a href={`${base}/templates`} class="hidden sm:flex items-center gap-2 text-violet-600 font-medium hover:gap-3 transition-all duration-200">
             View All
             <ArrowRight class="w-4 h-4" />
           </a>

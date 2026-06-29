@@ -1,24 +1,20 @@
 ---
 import { Github, Twitter, Mail, Heart } from 'lucide-astro';
 
+const base = '/digital-freebies';
+
 const footerLinks = {
   resources: [
-    { name: 'All Templates', href: '/templates' },
-    { name: 'Categories', href: '/categories' },
-    { name: 'Popular', href: '/popular' },
-    { name: 'New Arrivals', href: '/new' },
+    { name: 'All Templates', href: `${base}/templates` },
+    { name: 'Categories', href: `${base}/categories` },
   ],
   company: [
-    { name: 'About Us', href: '/about' },
-    { name: 'Contact', href: '/contact' },
-    { name: 'Privacy Policy', href: '/privacy' },
-    { name: 'Terms of Service', href: '/terms' },
+    { name: 'About Us', href: `${base}/about` },
+    { name: 'Privacy Policy', href: `${base}/privacy` },
+    { name: 'Terms of Service', href: `${base}/terms` },
   ],
   support: [
-    { name: 'FAQ', href: '/faq' },
-    { name: 'DMCA', href: '/dmca' },
-    { name: 'Report Link', href: '/report' },
-    { name: 'Sitemap', href: '/sitemap-index.xml' },
+    { name: 'Contact', href: `mailto:contact@templatehub.com` },
   ]
 };
 ---
@@ -29,7 +25,7 @@ const footerLinks = {
     <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
       <!-- Brand -->
       <div class="lg:col-span-1">
-        <a href="/" class="flex items-center gap-2 mb-4">
+        <a href={`${base}/`} class="flex items-center gap-2 mb-4">
           <div class="w-10 h-10 bg-gradient-to-br from-violet-500 to-indigo-600 rounded-xl flex items-center justify-center">
             <svg class="w-6 h-6 text-white" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
               <path d="M4 8V16M4 8L8 4L16 8L20 4M4 8L8 12L16 8M20 4V16M20 4L16 8M16 8V16"/>
@@ -38,16 +34,16 @@ const footerLinks = {
           <span class="text-xl font-bold text-gray-900">TemplateHub</span>
         </a>
         <p class="text-gray-600 text-sm leading-relaxed mb-4">
-          Free premium templates for everyone. Download high-quality Excel, Canva, Video, and PowerPoint templates for your projects.
+          Free premium templates for everyone. Download high quality Excel, Canva, Video, and PowerPoint templates for your projects.
         </p>
         <div class="flex items-center gap-3">
           <a href="#" class="p-2 text-gray-400 hover:text-violet-600 bg-gray-100 rounded-lg transition-colors">
             <Twitter class="w-5 h-5" />
           </a>
-          <a href="#" class="p-2 text-gray-400 hover:text-violet-600 bg-gray-100 rounded-lg transition-colors">
+          <a href="https://github.com/iqbalrn" class="p-2 text-gray-400 hover:text-violet-600 bg-gray-100 rounded-lg transition-colors">
             <Github class="w-5 h-5" />
           </a>
-          <a href="#" class="p-2 text-gray-400 hover:text-violet-600 bg-gray-100 rounded-lg transition-colors">
+          <a href="mailto:contact@templatehub.com" class="p-2 text-gray-400 hover:text-violet-600 bg-gray-100 rounded-lg transition-colors">
             <Mail class="w-5 h-5" />
           </a>
         </div>
@@ -104,13 +100,6 @@ const footerLinks = {
         <p class="text-sm text-gray-500">
           © 2026 TemplateHub. Made with <Heart class="w-4 h-4 inline text-red-500 fill-red-500" /> for creators worldwide.
         </p>
-        <div class="flex items-center gap-2">
-          <span class="text-sm text-gray-500">Language:</span>
-          <select class="bg-transparent text-sm text-gray-700 outline-none cursor-pointer">
-            <option value="en">English</option>
-            <option value="id">Bahasa Indonesia</option>
-          </select>
-        </div>
       </div>
     </div>
   </div>

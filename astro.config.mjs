@@ -3,7 +3,7 @@ import tailwind from '@astrojs/tailwind';
 
 export default defineConfig({
   site: 'https://iqbalrn.github.io/digital-freebies',
-  base: '/',
+  base: '/digital-freebies',
   output: 'static',
   build: {
     assets: 'assets'

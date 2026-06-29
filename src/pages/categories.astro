@@ -1,0 +1,70 @@
+---
+import MainLayout from '../layouts/MainLayout.astro';
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+import CategoryCard from '../components/CategoryCard.astro';
+import AdBanner from '../components/AdBanner.astro';
+import templatesData from '../data/templates.json';
+
+const categories = templatesData.categories;
+---
+
+<MainLayout title="Browse Categories - TemplateHub">
+  <Header />
+
+  <main class="min-h-screen bg-gray-50">
+    <!-- Hero -->
+    <section class="bg-white py-12 md:py-16">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+        <h1 class="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
+          📂 Browse All Categories
+        </h1>
+        <p class="text-gray-600 max-w-2xl mx-auto">
+          Find the perfect template for your project. Browse by category and discover hundreds of free templates.
+        </p>
+      </div>
+    </section>
+
+    <!-- Categories Grid -->
+    <section class="py-12">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+          {categories.map((category) => (
+            <CategoryCard
+              id={category.id}
+              name={category.name}
+              icon={category.icon}
+              description={category.description}
+              count={category.count}
+              href={`/category/${category.id}`}
+            />
+          ))}
+        </div>
+      </div>
+    </section>
+
+    <!-- Popular Tags -->
+    <section class="py-12 bg-white">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <h2 class="text-2xl font-bold text-gray-900 mb-6">Popular Tags</h2>
+        <div class="flex flex-wrap gap-3">
+          {[
+            'keuangan', 'bisnis', 'marketing', 'social media', 'instagram',
+            'youtube', 'presentation', 'portfolio', 'resume', 'invoice',
+            'report', 'chart', 'dashboard', 'poster', 'flyer',
+            'banner', 'logo', 'branding', 'animation', 'intro'
+          ].map((tag) => (
+            <a
+              href={`/templates?q=${tag}`}
+              class="px-4 py-2 bg-gray-100 text-gray-700 rounded-full text-sm hover:bg-violet-100 hover:text-violet-700 transition-colors"
+            >
+              #{tag}
+            </a>
+          ))}
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <Footer />
+</MainLayout>

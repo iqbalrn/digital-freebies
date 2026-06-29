@@ -1,0 +1,184 @@
+---
+import MainLayout from '../../layouts/MainLayout.astro';
+import Header from '../../components/Header.astro';
+import { Download, Clock, AlertCircle } from 'lucide-astro';
+import templatesData from '../../data/templates.json';
+
+export function getStaticPaths() {
+  return templatesData.templates.map((template) => ({
+    params: { slug: template.slug },
+    props: { template },
+  }));
+}
+
+const { template } = Astro.props;
+const countdownSeconds = 5;
+---
+
+<MainLayout title={`Download ${template.title} - TemplateHub`}>
+  <Header />
+
+  <main class="min-h-screen bg-gradient-to-br from-violet-50 via-white to-indigo-50 flex items-center justify-center p-4">
+    <div class="max-w-md w-full">
+      <!-- Download Card -->
+      <div class="bg-white rounded-3xl shadow-2xl overflow-hidden border border-gray-100">
+        <!-- Header -->
+        <div class="bg-gradient-to-r from-violet-600 to-indigo-600 p-6 text-center">
+          <div class="w-16 h-16 bg-white/20 backdrop-blur-sm rounded-2xl flex items-center justify-center mx-auto mb-4">
+            <Download class="w-8 h-8 text-white" />
+          </div>
+          <h1 class="text-xl font-bold text-white">Preparing Download</h1>
+          <p class="text-violet-100 mt-1 truncate px-2">{template.title}</p>
+        </div>
+
+        <!-- Countdown -->
+        <div class="p-8 text-center">
+          <!-- Circular Progress -->
+          <div class="relative w-32 h-32 mx-auto mb-6">
+            <svg class="w-full h-full transform -rotate-90" viewBox="0 0 100 100">
+              <!-- Background circle -->
+              <circle
+                cx="50"
+                cy="50"
+                r="45"
+                stroke="#e5e7eb"
+                stroke-width="6"
+                fill="none"
+              />
+              <!-- Progress circle -->
+              <circle
+                id="progress-circle"
+                cx="50"
+                cy="50"
+                r="45"
+                stroke="url(#gradient)"
+                stroke-width="6"
+                fill="none"
+                stroke-linecap="round"
+                stroke-dasharray={2 * Math.PI * 45}
+                stroke-dashoffset={2 * Math.PI * 45}
+                class="transition-all duration-1000"
+              />
+              <defs>
+                <linearGradient id="gradient" x1="0%" y1="0%" x2="100%" y2="0%">
+                  <stop offset="0%" stop-color="#7c3aed" />
+                  <stop offset="100%" stop-color="#4f46e5" />
+                </linearGradient>
+              </defs>
+            </svg>
+            <div class="absolute inset-0 flex items-center justify-center">
+              <span id="countdown" class="text-5xl font-bold bg-gradient-to-r from-violet-600 to-indigo-600 bg-clip-text text-transparent">
+                {countdownSeconds}
+              </span>
+            </div>
+          </div>
+
+          <p class="text-gray-600 mb-4">
+            Please wait while we prepare your download link...
+          </p>
+
+          <div class="flex items-center justify-center gap-2 text-sm text-gray-500 mb-6">
+            <Clock class="w-4 h-4" />
+            <span>This helps support our free service</span>
+          </div>
+
+          <!-- Progress Bar -->
+          <div class="w-full bg-gray-100 rounded-full h-2 mb-4">
+            <div id="progress-bar" class="bg-gradient-to-r from-violet-600 to-indigo-600 h-2 rounded-full transition-all duration-1000" style="width: 0%"></div>
+          </div>
+
+          <!-- Skip Button -->
+          <button
+            id="skip-btn"
+            class="hidden w-full py-3 border-2 border-gray-200 text-gray-600 font-medium rounded-xl hover:bg-gray-50 transition-colors"
+          >
+            Skip & Download Now
+          </button>
+        </div>
+
+        <!-- Ad Banner Area -->
+        <div class="px-6 pb-6">
+          <div class="bg-gray-100 border-2 border-dashed border-gray-300 rounded-xl p-4 text-center">
+            <div class="w-10 h-10 bg-gray-200 rounded-lg mx-auto mb-2 flex items-center justify-center">
+              <svg class="w-5 h-5 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 20H5a2 2 0 01-2-2V6a2 2 0 012-2h10a2 2 0 012 2v1m2 13a2 2 0 01-2-2V7m2 13a2 2 0 002-2V9a2 2 0 00-2-2h-2m-4-3H9M7 16h6M7 8h6v4H7V8z" />
+              </svg>
+            </div>
+            <p class="text-sm text-gray-500">Advertisement</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Warning -->
+      <div class="flex items-center justify-center gap-2 mt-6 text-sm text-gray-500">
+        <AlertCircle class="w-4 h-4" />
+        <span>File will be downloaded from Google Drive</span>
+      </div>
+    </div>
+  </main>
+</MainLayout>
+
+<script define:vars={{ countdownSeconds }}>
+  const progressCircle = document.getElementById('progress-circle');
+  const progressBar = document.getElementById('progress-bar');
+  const countdownEl = document.getElementById('countdown');
+  const skipBtn = document.getElementById('skip-btn');
+
+  let remaining = countdownSeconds;
+  const circumference = 2 * Math.PI * 45;
+
+  // Update progress
+  function updateProgress() {
+    const progress = ((countdownSeconds - remaining) / countdownSeconds) * 100;
+    const offset = circumference - (remaining / countdownSeconds) * circumference;
+
+    if (progressCircle) {
+      progressCircle.style.strokeDashoffset = offset;
+    }
+    if (progressBar) {
+      progressBar.style.width = `${progress}%`;
+    }
+    if (countdownEl) {
+      countdownEl.textContent = remaining.toString();
+    }
+  }
+
+  // Initial state
+  updateProgress();
+
+  // Countdown
+  const interval = setInterval(() => {
+    remaining--;
+    updateProgress();
+
+    if (remaining <= 0) {
+      clearInterval(interval);
+      redirectToDownload();
+    }
+  }, 1000);
+
+  // Skip button
+  skipBtn?.addEventListener('click', () => {
+    clearInterval(interval);
+    redirectToDownload();
+  });
+
+  function redirectToDownload() {
+    if (skipBtn) {
+      skipBtn.textContent = 'Redirecting...';
+      skipBtn.classList.add('pointer-events-none', 'opacity-50');
+    }
+
+    const currentPath = window.location.pathname;
+    const slug = currentPath.split('/').pop();
+
+    // In production, redirect to your shortlink
+    // window.location.href = `https://your-shortlink.com/?id=${slug}`;
+
+    // For demo, show message
+    setTimeout(() => {
+      alert(`Redirecting to download!\n\nIn production:\n1. Adsterra interstitial\n2. Shortlink redirect\n3. Google Drive download`);
+      window.history.back();
+    }, 500);
+  }
+</script>

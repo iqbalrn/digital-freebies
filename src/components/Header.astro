@@ -1,0 +1,170 @@
+---
+import { Menu, Search, X } from 'lucide-astro';
+
+const navItems = [
+  { label: 'Home', href: '/' },
+  { label: 'Templates', href: '/templates' },
+  { label: 'Categories', href: '/categories' },
+  { label: 'About', href: '/about' },
+];
+
+const categories = [
+  { id: 'excel', name: 'Excel', href: '/category/excel' },
+  { id: 'canva', name: 'Canva', href: '/category/canva' },
+  { id: 'video', name: 'Video', href: '/category/video' },
+  { id: 'powerpoint', name: 'PowerPoint', href: '/category/powerpoint' },
+  { id: 'word', name: 'Word', href: '/category/word' },
+];
+---
+
+<header class="sticky top-0 z-50 bg-white backdrop-blur-md border-b border-gray-200 transition-colors duration-300">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="flex items-center justify-between h-16">
+      <!-- Logo -->
+      <a href="/" class="flex items-center gap-2 group">
+        <div class="w-10 h-10 bg-gradient-to-br from-violet-500 to-indigo-600 rounded-xl flex items-center justify-center shadow-lg shadow-violet-500/30 group-hover:shadow-violet-500/50 transition-all duration-300">
+          <svg class="w-6 h-6 text-white" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M4 8V16M4 8L8 4L16 8L20 4M4 8L8 12L16 8M20 4V16M20 4L16 8M16 8V16"/>
+          </svg>
+        </div>
+        <span class="text-xl font-bold bg-gradient-to-r from-violet-600 to-indigo-600 bg-clip-text text-transparent">
+          TemplateHub
+        </span>
+      </a>
+
+      <!-- Desktop Navigation -->
+      <nav class="hidden md:flex items-center gap-1">
+        {navItems.map((item) => (
+          <a
+            href={item.href}
+            class="px-4 py-2 text-gray-700 hover:text-violet-600 font-medium rounded-lg hover:bg-violet-50 transition-colors duration-200"
+          >
+            {item.label}
+          </a>
+        ))}
+      </nav>
+
+      <!-- Right Actions -->
+      <div class="flex items-center gap-2">
+        <!-- Search Button -->
+        <button
+          id="search-toggle"
+          class="p-2.5 text-gray-600 hover:text-violet-600 hover:bg-gray-100 rounded-xl transition-colors duration-200"
+          aria-label="Search"
+        >
+          <Search class="w-5 h-5" />
+        </button>
+
+        <!-- Mobile Menu Button -->
+        <button
+          id="mobile-menu-toggle"
+          class="p-2.5 text-gray-600 hover:text-violet-600 hover:bg-gray-100 rounded-xl transition-colors duration-200 md:hidden"
+          aria-label="Menu"
+        >
+          <Menu class="w-5 h-5" />
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Search Modal -->
+  <div id="search-modal" class="hidden fixed inset-0 z-[60] bg-black/50 backdrop-blur-sm">
+    <div class="max-w-2xl mx-auto mt-20 px-4">
+      <div class="bg-white rounded-2xl shadow-2xl p-4 animate-slide-up">
+        <div class="flex items-center gap-3 border-b border-gray-200 pb-4">
+          <Search class="w-5 h-5 text-gray-400" />
+          <input
+            type="text"
+            id="search-input"
+            placeholder="Search templates..."
+            class="flex-1 bg-transparent text-lg outline-none text-gray-900 placeholder-gray-400"
+          />
+          <button
+            id="search-close"
+            class="p-1 text-gray-400 hover:text-gray-600"
+          >
+            <X class="w-5 h-5" />
+          </button>
+        </div>
+        <div class="pt-4 max-h-80 overflow-y-auto">
+          <p class="text-sm text-gray-500">Popular searches:</p>
+          <div class="flex flex-wrap gap-2 mt-2">
+            <button class="px-3 py-1.5 bg-gray-100 text-gray-700 rounded-lg text-sm hover:bg-violet-100 hover:text-violet-700 transition-colors">
+              Excel Keuangan
+            </button>
+            <button class="px-3 py-1.5 bg-gray-100 text-gray-700 rounded-lg text-sm hover:bg-violet-100 hover:text-violet-700 transition-colors">
+              Canva Instagram
+            </button>
+            <button class="px-3 py-1.5 bg-gray-100 text-gray-700 rounded-lg text-sm hover:bg-violet-100 hover:text-violet-700 transition-colors">
+              PowerPoint Business
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Mobile Menu -->
+  <div id="mobile-menu" class="hidden md:hidden border-t border-gray-200 bg-white">
+    <nav class="max-w-7xl mx-auto px-4 py-4 space-y-1">
+      {navItems.map((item) => (
+        <a
+          href={item.href}
+          class="block px-4 py-3 text-gray-700 hover:text-violet-600 hover:bg-violet-50 rounded-xl font-medium transition-colors duration-200"
+        >
+          {item.label}
+        </a>
+      ))}
+      <div class="border-t border-gray-200 mt-4 pt-4">
+        <p class="px-4 text-xs text-gray-500 uppercase tracking-wider mb-2">Categories</p>
+        {categories.map((cat) => (
+          <a
+            href={cat.href}
+            class="block px-4 py-2 text-gray-600 hover:text-violet-600 hover:bg-gray-50 rounded-lg transition-colors duration-200"
+          >
+            {cat.name}
+          </a>
+        ))}
+      </div>
+    </nav>
+  </div>
+</header>
+
+<script>
+  // Mobile Menu Toggle
+  const mobileMenuToggle = document.getElementById('mobile-menu-toggle');
+  const mobileMenu = document.getElementById('mobile-menu');
+
+  mobileMenuToggle?.addEventListener('click', () => {
+    mobileMenu?.classList.toggle('hidden');
+  });
+
+  // Search Modal
+  const searchToggle = document.getElementById('search-toggle');
+  const searchModal = document.getElementById('search-modal');
+  const searchClose = document.getElementById('search-close');
+  const searchInput = document.getElementById('search-input') as HTMLInputElement;
+
+  searchToggle?.addEventListener('click', () => {
+    searchModal?.classList.remove('hidden');
+    searchInput?.focus();
+  });
+
+  searchClose?.addEventListener('click', () => {
+    searchModal?.classList.add('hidden');
+  });
+
+  searchModal?.addEventListener('click', (e) => {
+    if (e.target === searchModal) {
+      searchModal.classList.add('hidden');
+    }
+  });
+
+  // Close menu on escape
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape') {
+      searchModal?.classList.add('hidden');
+      mobileMenu?.classList.add('hidden');
+    }
+  });
+</script>

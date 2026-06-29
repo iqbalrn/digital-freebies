@@ -1,0 +1,62 @@
+---
+import { FileSpreadsheet, Palette, Video, Presentation, FileText, ArrowRight } from 'lucide-astro';
+
+interface Props {
+  id: string;
+  name: string;
+  icon: string;
+  description: string;
+  count: number;
+  href: string;
+}
+
+const { id, name, icon, description, count, href } = Astro.props;
+
+const iconMap: Record<string, any> = {
+  'file-spreadsheet': FileSpreadsheet,
+  'palette': Palette,
+  'video': Video,
+  'presentation': Presentation,
+  'file-text': FileText,
+};
+
+const iconColors: Record<string, string> = {
+  excel: 'from-green-500 to-emerald-600',
+  canva: 'from-pink-500 to-rose-600',
+  video: 'from-purple-500 to-violet-600',
+  powerpoint: 'from-orange-500 to-amber-600',
+  word: 'from-blue-500 to-indigo-600',
+};
+
+const IconComponent = iconMap[icon] || FileText;
+const colorClass = iconColors[id] || 'from-gray-500 to-gray-600';
+---
+
+<a
+  href={href}
+  class="group relative bg-white rounded-2xl p-6 border border-gray-100 hover:border-transparent shadow-sm hover:shadow-xl transition-all duration-300 overflow-hidden"
+>
+  <!-- Background gradient on hover -->
+  <div class={`absolute inset-0 bg-gradient-to-br ${colorClass} opacity-0 group-hover:opacity-10 transition-opacity duration-300`} />
+
+  <!-- Icon -->
+  <div class={`inline-flex items-center justify-center w-14 h-14 rounded-2xl bg-gradient-to-br ${colorClass} shadow-lg mb-4 transform group-hover:scale-110 transition-transform duration-300`}>
+    <IconComponent class="w-7 h-7 text-white" />
+  </div>
+
+  <!-- Content -->
+  <h3 class="text-lg font-bold text-gray-900 mb-2 group-hover:text-violet-600 transition-colors">
+    {name}
+  </h3>
+  <p class="text-sm text-gray-600 mb-4 line-clamp-2">
+    {description}
+  </p>
+
+  <!-- Count & Arrow -->
+  <div class="flex items-center justify-between">
+    <span class="text-sm font-medium text-gray-500">
+      {count} templates
+    </span>
+    <ArrowRight class="w-5 h-5 text-violet-600 transform group-hover:translate-x-1 transition-transform duration-200" />
+  </div>
+</a>

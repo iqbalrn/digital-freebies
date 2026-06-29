@@ -1,0 +1,20 @@
+{
+  "name": "digital-freebies",
+  "type": "module",
+  "version": "1.0.0",
+  "description": "Download free digital resources: Canva Templates, Excel, Documents & More",
+  "scripts": {
+    "dev": "astro dev",
+    "build": "astro build",
+    "preview": "astro preview",
+    "build:github": "astro build --site https://yourusername.github.io --base /"
+  },
+  "dependencies": {
+    "@astrojs/sitemap": "^3.7.3",
+    "@astrojs/tailwind": "^6.0.2",
+    "@lucide/astro": "^1.22.0",
+    "astro": "^4.16.19",
+    "lucide-astro": "^0.556.0",
+    "tailwindcss": "^3.4.19"
+  }
+}

@@ -149,12 +149,32 @@ git push
 
 ## 📌 TODO
 
+- [ ] **Setup Admin Panel** (Decap CMS / TinaCMS) - GUI untuk manajemen template tanpa edit JSON
 - [ ] Setup Adsterra ads
 - [ ] Setup shortlink untuk download
 - [ ] Ganti template data dengan data asli
 - [ ] Upload thumbnail semua template
 - [ ] Beli domain custom
 - [ ] Setup newsletter (email service)
+
+---
+
+## 🖥️ Admin Panel Options
+
+### Option 1: Decap CMS (Recommended)
+- **Gratis**
+- GUI di browser
+- Langsung push ke GitHub
+- Edit template tanpa coding
+
+### Option 2: TinaCMS
+- Visual editor inline
+- Preview langsung
+
+### Option 3: Custom Admin Page
+- Buat halaman `/admin` di Astro
+- Form untuk tambah/edit template
+- Simpan ke JSON atau API
 
 ---
 
